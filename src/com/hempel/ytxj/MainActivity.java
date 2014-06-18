@@ -30,10 +30,6 @@ public class MainActivity extends Activity {
 	protected String initUrl;
 	private String urlHome = "http://ytxjxt.aliapp.com/#p=%E7%99%BB%E5%BD%95";
 
-	// 0: default,loadUrl;  1:loadData
-	private static int loadType = 0;
-	private String webData = "";
-
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +38,7 @@ public class MainActivity extends Activity {
 
 		contentWebView = (WebView) findViewById(R.id.webview);
 		setWebViewProperty();
+		setTitle(getString(R.string.first_title));
 		contentWebView.loadUrl(urlHome);
 	}
 
@@ -118,7 +115,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onReceivedTitle(WebView view, String title) {
 			super.onReceivedTitle(view, title);
-			setTitle(title);
+			if(!title.equals("Untitled Document"))
+				setTitle(title);
 		}
 
 		public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
