@@ -138,13 +138,13 @@ public class MainActivity extends Activity {
 			super.onProgressChanged(view, newProgress);
 		}
 
-//		@Override
-//		public void onReceivedTitle(WebView view, String title) {
+		@Override
+		public void onReceivedTitle(WebView view, String title) {
 //			super.onReceivedTitle(view, title);
 //			if(!(title.equals("Untitled Document") ||
 //				title.equals("index") ))
 //				setTitle(title);
-//		}
+		}
 
 		public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
 			openFileChooserLocal(uploadMsg, acceptType, capture);
