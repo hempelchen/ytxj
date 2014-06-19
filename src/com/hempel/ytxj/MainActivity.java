@@ -8,11 +8,15 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.*;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -20,6 +24,7 @@ public class MainActivity extends Activity {
 	private WebView contentWebView = null;
 	private ValueCallback<Uri> mUploadMessage = null;
 	private static int RESULT_LOAD_IMAGE = 1;
+	private boolean mIsExit = false;
 	private String mCameraFilePath = "";
 
 	private static int MINIMUM_FONT_SIZE = 8;
@@ -34,12 +39,33 @@ public class MainActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN , WindowManager.LayoutParams. FLAG_FULLSCREEN);
 		setContentView(R.layout.main);
 
 		contentWebView = (WebView) findViewById(R.id.webview);
 		setWebViewProperty();
-		setTitle(getString(R.string.first_title));
+//		setTitle(getString(R.string.first_title));
 		contentWebView.loadUrl(urlHome);
+	}
+
+	@Override
+	public void onBackPressed() {
+		if (mIsExit) {
+			this.finish();
+			System.exit(0);
+			return;
+		}
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				mIsExit = false;
+			}
+		}, 3000);
+		Toast.makeText(this, "连续点击退出", Toast.LENGTH_SHORT).show();
+		mIsExit = true;
+
 	}
 
 	public void setWebViewProperty() {
@@ -112,13 +138,13 @@ public class MainActivity extends Activity {
 			super.onProgressChanged(view, newProgress);
 		}
 
-		@Override
-		public void onReceivedTitle(WebView view, String title) {
-			super.onReceivedTitle(view, title);
-			if(!(title.equals("Untitled Document") ||
-				title.equals("index") ))
-				setTitle(title);
-		}
+//		@Override
+//		public void onReceivedTitle(WebView view, String title) {
+//			super.onReceivedTitle(view, title);
+//			if(!(title.equals("Untitled Document") ||
+//				title.equals("index") ))
+//				setTitle(title);
+//		}
 
 		public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
 			openFileChooserLocal(uploadMsg, acceptType, capture);
