@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
 	private static int DEFAULT_FIXED_FONT_SIZE = 13;
 	protected String cacheUrl;
 	protected String initUrl;
-	private String urlHome = "http://ytxjxt.aliapp.com/#p=%E7%99%BB%E5%BD%95";
+	private String urlHome = "http://ytxj.aliapp.com/";
 
 	@SuppressLint("SetJavaScriptEnabled")
 	@Override
@@ -115,7 +115,8 @@ public class MainActivity extends Activity {
 		@Override
 		public void onReceivedTitle(WebView view, String title) {
 			super.onReceivedTitle(view, title);
-			if(!title.equals("Untitled Document"))
+			if(!(title.equals("Untitled Document") ||
+				title.equals("index") ))
 				setTitle(title);
 		}
 
