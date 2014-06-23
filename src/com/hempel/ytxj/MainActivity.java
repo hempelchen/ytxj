@@ -82,6 +82,8 @@ public class MainActivity extends Activity {
 		settings.setAllowFileAccess(true);
 		settings.setBuiltInZoomControls(false);
 		settings.setDomStorageEnabled(true);
+		settings.setUseWideViewPort(true);
+		settings.setLoadWithOverviewMode(true);
 		contentWebView.addJavascriptInterface(this, "android");
 		contentWebView.setWebViewClient(new LbsWebViewClient());
 		contentWebView.setWebChromeClient(new LbsWebChromeClient());
